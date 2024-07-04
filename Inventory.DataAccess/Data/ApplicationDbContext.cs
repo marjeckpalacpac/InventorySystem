@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Inventory.Models.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,6 @@ namespace Inventory.DataAccess.Data
                 
         }
 
-        
+        public DbSet<ProductCategory> ProductCategories { get; set; }
     }
 }
