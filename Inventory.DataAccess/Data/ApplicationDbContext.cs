@@ -15,6 +15,10 @@ namespace Inventory.DataAccess.Data
                 
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
         public DbSet<ProductCategory> ProductCategories { get; set; }
     }
 }
