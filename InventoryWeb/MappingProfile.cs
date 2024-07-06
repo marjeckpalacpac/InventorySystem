@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Inventory.Models.Models;
+using Inventory.Models.ViewModels;
 
 namespace InventoryWeb
 {
@@ -6,7 +8,8 @@ namespace InventoryWeb
     {
         public MappingProfile()
         {
-              
+            CreateMap<ProductCategory, ProductCategoryViewModel>();
+            CreateMap<ProductCategoryViewModel, ProductCategory>();
         }
     }
 }
