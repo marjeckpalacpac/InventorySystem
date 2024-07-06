@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Inventory.DataAccess.Services.ProductCategory
+namespace Inventory.DataAccess.Services
 {
     public interface IProductCategoryService
     {

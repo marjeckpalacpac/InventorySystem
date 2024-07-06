@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Inventory.DataAccess.Services
 {
-    public class ProductCategoryService
+    public class ProductCategoryService : IProductCategoryService
     {
         private readonly ApplicationDbContext _dbContext;
 
