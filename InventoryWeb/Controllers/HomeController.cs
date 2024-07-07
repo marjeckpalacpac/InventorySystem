@@ -1,4 +1,5 @@
 using InventoryWeb.Models;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -26,6 +27,10 @@ namespace InventoryWeb.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+            var exceptionFeature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+
+            ViewBag.ErrorMessage = exceptionFeature.Error.Message;
+
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }

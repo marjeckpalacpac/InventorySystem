@@ -1,5 +1,6 @@
 using Inventory.DataAccess.Data;
 using InventoryWeb;
+using InventoryWeb.Middlewares;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,13 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseExceptionHandler("/Home/Error");
+
+//app.UseDeveloperExceptionPage(); -- NO NEED FOR THIS. This is builtin when environment is Development
+
+//app.UseMiddleware<ExceptionHandlerMiddleware>(); -- OPTION if we want a custom exception handler middleware. If not, you can use the UseExceptionHandler. This will catch error from either api request or mvc request
+//app.UseMiddleware<ApiExceptionMiddleware>(); -- OPTION. This will catch the error if API request only
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
