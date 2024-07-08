@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Inventory.DataAccess.Services;
+using Inventory.Models.Models;
 using Inventory.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,8 +21,80 @@ namespace InventoryWeb.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Create(int id)
+        {
+            return View();
+        }
+
         [HttpPost]
-        public async Task<IActionResult> GetProductCategories()
+        public async Task<IActionResult> Create(ProductCategoryViewModel vm)
+        {
+            ProductCategory info = _mapper.Map<ProductCategory>(vm);
+
+            //Create
+            info.IsActive = true;
+            await _productCategory.CreateProductCategory(info);
+            return View(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+
+            var productCategory = await _productCategory.GetProductCategory((int)id);
+
+            if (productCategory == null)
+                return NotFound();
+
+            var vm = _mapper.Map<ProductCategoryViewModel>(productCategory);
+
+            return View(vm);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ProductCategoryViewModel vm)
+        {
+            ProductCategory info = _mapper.Map<ProductCategory>(vm);
+
+            bool isUpdated = await _productCategory.UpdateProductCategory(info);
+            if (isUpdated)
+                return RedirectToAction(nameof(Index));
+            else
+                return NotFound();
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+
+            var productCategory = await _productCategory.GetProductCategory((int)id);
+
+            if (productCategory == null)
+                return NotFound();
+
+            var vm = _mapper.Map<ProductCategoryViewModel>(productCategory);
+
+            return View(vm);
+
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeletePost(int id)
+        {
+            bool isUpdated = await _productCategory.DeleteProductCategory(id);
+            if (isUpdated)
+                return RedirectToAction(nameof(Index));
+            else
+                return NotFound();
+
+        }
+
+        #region API Calls
+        [HttpPost]
+        public async Task<IActionResult> SearchProductCategory()
         {
             string? draw = Request.Form["draw"].FirstOrDefault();
 
@@ -40,5 +113,7 @@ namespace InventoryWeb.Controllers
 
             return Json(new { recordsTotal, recordsFiltered, data = productCategoriesVM });
         }
+        #endregion
+
     }
 }

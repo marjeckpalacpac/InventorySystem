@@ -22,24 +22,65 @@ namespace Inventory.DataAccess.Services
 
         public async Task<(List<ProductCategory> productCategories, int recordsTotal, int recordsFiltered)> SearchProductCategory(DataTableParams tableParams)
         {
-            var productCategories = await _dbContext.ProductCategories.ToListAsync();
-            
-            int recordsTotal = productCategories.Count();
+            var query = _dbContext.ProductCategories.Where(w => w.IsActive);
+
+            int recordsTotal = await query.CountAsync();
             int recordsFiltered = recordsTotal;
 
+            List<ProductCategory> productCategories;
             if (!string.IsNullOrEmpty(tableParams.SearchValue))
             {
-                string searchValue = tableParams.SearchValue.ToLower();
-                productCategories = productCategories.Where(w =>
-                    w.Id.ToString().Contains(searchValue)
-                    || w.Name.ToLower().Contains(searchValue)).ToList();
+               string searchValue = tableParams.SearchValue.ToLower();
 
-                recordsFiltered = productCategories.Count();
+                query = query.Where(w =>
+                    w.Id.ToString().Contains(searchValue)
+                    || w.Name.ToLower().Contains(searchValue));
+
+                recordsFiltered = await query.CountAsync();
             }
 
-            productCategories = productCategories.Skip(tableParams.Start).Take(tableParams.Length).ToList();
+            productCategories = await query.Skip(tableParams.Start).Take(tableParams.Length).ToListAsync();
 
             return (productCategories, recordsTotal, recordsFiltered);
+        }
+
+        public async Task<ProductCategory?> GetProductCategory(int id)
+        {
+            var record = await _dbContext.ProductCategories.AsNoTracking().FirstOrDefaultAsync(w => w.Id == id && w.IsActive);
+
+            return record;
+        }
+
+        public async Task CreateProductCategory(ProductCategory info)
+        {
+            await _dbContext.ProductCategories.AddAsync(info);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> UpdateProductCategory(ProductCategory info)
+        {
+            var productCategory = await _dbContext.ProductCategories.FirstOrDefaultAsync(w => w.Id == info.Id && w.IsActive);
+            if (productCategory == null)
+                return false;
+
+            productCategory.Name = info.Name;
+
+            await _dbContext.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> DeleteProductCategory(int id)
+        {
+            var productCategory = await _dbContext.ProductCategories.FirstOrDefaultAsync(w => w.Id == id && w.IsActive);
+            if (productCategory == null)
+                return false;
+
+            productCategory.IsActive = false;
+
+            await _dbContext.SaveChangesAsync();
+
+            return true;
         }
     }
 }
