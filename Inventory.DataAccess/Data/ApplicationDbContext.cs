@@ -15,10 +15,25 @@ namespace Inventory.DataAccess.Data
                 
         }
 
+        public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<Company> Companies { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Company>().HasData(
+                new Company()
+                {
+                    Id = 1,
+                    Name = "ABC Inc.",
+                    Address = "Las Piñas City",
+                    TelephoneNo = "12345678",
+                    MobileNo = "09291234567",
+                    ContactPerson = "John Doe",
+                    Email = "JohnDoe@gmail.com",
+                    SystemOwner = true,
+                }
+                );
         }
-        public DbSet<ProductCategory> ProductCategories { get; set; }
     }
 }

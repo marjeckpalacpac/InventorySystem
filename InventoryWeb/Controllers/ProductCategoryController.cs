@@ -42,7 +42,6 @@ namespace InventoryWeb.Controllers
 
                 ProductCategory info = _mapper.Map<ProductCategory>(vm);
 
-                info.IsActive = true;
                 await _productCategory.CreateProductCategory(info);
 
                 return View(nameof(Index));
