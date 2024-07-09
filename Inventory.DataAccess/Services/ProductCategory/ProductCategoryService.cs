@@ -51,6 +51,15 @@ namespace Inventory.DataAccess.Services
             return record;
         }
 
+        public async Task<bool> IsNameExist(int id, string name)
+        {
+            var exist = await _dbContext.ProductCategories
+                .AnyAsync(w => w.Name.ToLower() == name.ToLower() 
+                && w.Id != id && w.IsActive);
+
+            return exist;
+        }
+
         public async Task CreateProductCategory(ProductCategory info)
         {
             await _dbContext.ProductCategories.AddAsync(info);

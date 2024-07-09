@@ -13,6 +13,7 @@ namespace Inventory.DataAccess.Services
         Task CreateProductCategory(ProductCategory info);
         Task<bool> DeleteProductCategory(int id);
         Task<ProductCategory?> GetProductCategory(int id);
+        Task<bool> IsNameExist(int id, string name);
         Task<(List<ProductCategory> productCategories, int recordsTotal, int recordsFiltered)> SearchProductCategory(DataTableParams tableParams);
         Task<bool> UpdateProductCategory(ProductCategory info);
     }

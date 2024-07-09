@@ -30,12 +30,24 @@ namespace InventoryWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductCategoryViewModel vm)
         {
-            ProductCategory info = _mapper.Map<ProductCategory>(vm);
+            if (ModelState.IsValid)
+            {
+                var isNameExist = await _productCategory.IsNameExist(vm.Id, vm.Name);
+                if (isNameExist)
+                {
+                    //Custom validation
+                    ModelState.AddModelError("Name", "Name is already exist!");
+                    return View();
+                }
 
-            //Create
-            info.IsActive = true;
-            await _productCategory.CreateProductCategory(info);
-            return View(nameof(Index));
+                ProductCategory info = _mapper.Map<ProductCategory>(vm);
+
+                info.IsActive = true;
+                await _productCategory.CreateProductCategory(info);
+
+                return View(nameof(Index));
+            }
+            return View();
         }
 
         [HttpGet]
@@ -56,14 +68,26 @@ namespace InventoryWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(ProductCategoryViewModel vm)
         {
-            ProductCategory info = _mapper.Map<ProductCategory>(vm);
+            if (ModelState.IsValid)
+            {
+                var isNameExist = await _productCategory.IsNameExist(vm.Id, vm.Name);
+                if (isNameExist)
+                {
+                    //Custom validation
+                    ModelState.AddModelError("Name", "Name is already exist!");
+                    return View();
+                }
 
-            bool isUpdated = await _productCategory.UpdateProductCategory(info);
-            if (isUpdated)
-                return RedirectToAction(nameof(Index));
-            else
-                return NotFound();
+                ProductCategory info = _mapper.Map<ProductCategory>(vm);
 
+                bool isUpdated = await _productCategory.UpdateProductCategory(info);
+                if (isUpdated)
+                    return RedirectToAction(nameof(Index));
+                else
+                    return NotFound();
+            }
+
+            return View(vm);
         }
 
         [HttpGet]
