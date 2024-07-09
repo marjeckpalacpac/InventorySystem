@@ -8,8 +8,8 @@ namespace InventoryWeb
     {
         public MappingProfile()
         {
-            CreateMap<ProductCategory, ProductCategoryViewModel>();
-            CreateMap<ProductCategoryViewModel, ProductCategory>();
+            CreateMap<ProductCategory, ProductCategoryViewModel>().ReverseMap();
+            CreateMap<Company, CompanyViewModel>().ReverseMap();
         }
     }
 }

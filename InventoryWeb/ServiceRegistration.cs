@@ -7,6 +7,7 @@ namespace InventoryWeb
         public static IServiceCollection AddServiceRegistration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IProductCategoryService, ProductCategoryService>();
+            services.AddScoped<ICompanyService, CompanyService>();
             return services;
         }
     }

@@ -2,7 +2,7 @@
     <div class="card-header bg-primary bg-gradient ml-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
-                <h2 class="text-white py-2">Category</h2>
+                <h2 class="text-white py-2">Company</h2>
             </div>
         </div>
     </div>
@@ -11,8 +11,8 @@
             <div class="col-6">
             </div>
             <div class="col-6 text-end">
-                <a class="btn btn-primary" asp-controller="ProductCategory" asp-action="Create">
-                    <i class="bi bi-plus-circle"></i> Create New Category
+                <a class="btn btn-primary" asp-controller="Company" asp-action="Create">
+                    <i class="bi bi-plus-circle"></i> Create New Company
                 </a>
             </div>
         </div>
@@ -22,6 +22,8 @@
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
+                    <th>Telephone No.</th>
+                    <th>Email</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -29,6 +31,6 @@
     </div>
 </div>
 
-@section Scripts{
-    <script src="~/js/productCategory.js"></script>
+@section Scripts {
+    <script src="~/js/company.js"></script>
 }
