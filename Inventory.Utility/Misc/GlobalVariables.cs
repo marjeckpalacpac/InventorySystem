@@ -11,4 +11,10 @@ namespace Inventory.Utility.Misc
         public static string Supplier { get; } = "Supplier";
         public static string Customer { get; } = "Customer";
     }
+
+    public static class TempDataNotification
+    {
+        public static string Success { get; } = "success";
+        public static string Error { get; } = "error";
+    }
 }

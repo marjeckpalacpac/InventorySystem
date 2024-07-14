@@ -3,6 +3,7 @@ using Inventory.DataAccess.Services;
 using Inventory.Models.Models;
 using Inventory.Models.ViewModels;
 using Inventory.Utility.Helpers;
+using Inventory.Utility.Misc;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryWeb.Controllers
@@ -47,10 +48,13 @@ namespace InventoryWeb.Controllers
                 Company info = _mapper.Map<Company>(vm);
 
                 await _company.CreateCompany(info);
+                TempData[TempDataNotification.Success] = string.Concat("Company ", info.Name, " created successfully");
 
                 return View(nameof(Index));
             }
             await PopulateCommonList(vm);
+
+            TempData[TempDataNotification.Error] = "Something went wrong";
             return View(vm);
         }
 
@@ -86,11 +90,15 @@ namespace InventoryWeb.Controllers
 
                 bool isUpdated = await _company.UpdateCompany(info);
                 if (isUpdated)
+                {
+                    TempData[TempDataNotification.Success] = string.Concat("Company ", info.Name, " updated successfully");
                     return RedirectToAction(nameof(Index));
+                }
                 else
                     return NotFound();
             }
 
+            TempData[TempDataNotification.Error] = "Something went wrong";
             return View(vm);
         }
 
@@ -115,7 +123,10 @@ namespace InventoryWeb.Controllers
         {
             bool isUpdated = await _company.DeleteCompany(id);
             if (isUpdated)
+            {
+                TempData[TempDataNotification.Success] = "Deleted successfully";
                 return RedirectToAction(nameof(Index));
+            }
             else
                 return NotFound();
 

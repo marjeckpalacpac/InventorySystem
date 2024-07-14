@@ -2,6 +2,7 @@
 using Inventory.DataAccess.Services;
 using Inventory.Models.Models;
 using Inventory.Models.ViewModels;
+using Inventory.Utility.Misc;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryWeb.Controllers
@@ -43,9 +44,12 @@ namespace InventoryWeb.Controllers
                 ProductCategory info = _mapper.Map<ProductCategory>(vm);
 
                 await _productCategory.CreateProductCategory(info);
+                TempData[TempDataNotification.Success] = string.Concat("Product category ", info.Name, " created successfully");
 
                 return View(nameof(Index));
             }
+
+            TempData[TempDataNotification.Error] = "Something went wrong";
             return View(vm);
         }
 
@@ -81,11 +85,15 @@ namespace InventoryWeb.Controllers
 
                 bool isUpdated = await _productCategory.UpdateProductCategory(info);
                 if (isUpdated)
-                    return RedirectToAction(nameof(Index));
+                {
+                    TempData[TempDataNotification.Success] = string.Concat("Product category ", info.Name, " updated successfully");
+                    return RedirectToAction(nameof(Index)); 
+                }
                 else
                     return NotFound();
             }
 
+            TempData[TempDataNotification.Error] = "Something went wrong";
             return View(vm);
         }
 
@@ -109,7 +117,10 @@ namespace InventoryWeb.Controllers
         {
             bool isUpdated = await _productCategory.DeleteProductCategory(id);
             if (isUpdated)
-                return RedirectToAction(nameof(Index));
+            {
+                TempData[TempDataNotification.Success] = "Deleted successfully";
+                return RedirectToAction(nameof(Index)); 
+            }
             else
                 return NotFound();
 
