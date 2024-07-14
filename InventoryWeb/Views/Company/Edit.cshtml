@@ -1,0 +1,83 @@
+﻿@using Inventory.Models.ViewModels
+
+@model CompanyViewModel
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-primary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Update Company</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row">
+            <div class="border p-3">
+                <div class="row">
+                    <div class="py-2 col-6">
+                        <label asp-for="Name" class="form-label"></label>
+                        <input asp-for="Name" class="form-control border-0 shadow" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="py-2 col-6">
+                        <label asp-for="Address" class="form-label"></label>
+                        <input asp-for="Address" class="form-control border-0 shadow" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="py-2 col-6">
+                        <label asp-for="TelephoneNo" class="form-label">Telephone No.</label>
+                        <input asp-for="TelephoneNo" class="form-control border-0 shadow" />
+                        <span asp-validation-for="TelephoneNo" class="text-danger"></span>
+                    </div>
+                    <div class="py-2 col-6">
+                        <label asp-for="MobileNo" class="form-label">Mobile No.</label>
+                        <input asp-for="MobileNo" class="form-control border-0 shadow" />
+                        <span asp-validation-for="MobileNo" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="py-2 col-6">
+                        <label asp-for="ContactPerson" class="form-label">Contact Person</label>
+                        <input asp-for="ContactPerson" class="form-control border-0 shadow" />
+                        <span asp-validation-for="ContactPerson" class="text-danger"></span>
+                    </div>
+                    <div class="py-2 col-6">
+                        <label asp-for="Email" class="form-label"></label>
+                        <input asp-for="Email" class="form-control border-0 shadow" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="py-2 col-6">
+                        <label asp-for="SupplyChainPartners" class="form-label">Supply Chain Partners</label>
+                        <select id="multiSelectPartners"  asp-for="SupplyChainPartners" multiple="multiple" data-placeholder="Choose item"
+                                asp-items="@Model.SupplyChainPartnerSelectList" class="form-select border-0 shadow">
+                            <option disabled>-</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row pt-2">
+                <div class="col-6 col-md-3 ms-auto">
+                    <button type="submit" class="btn btn-primary form-control">Update</button>
+                </div>
+                <div class="col-6 col-md-3">
+                    <a asp-controller="Company" asp-action="Index" class="btn btn-outline-primary border form-control">
+                        Back to List
+                    </a>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+</div>
+@section Scripts {
+    @{
+        <script src="~/js/company/crud.js"></script>
+        <partial name="_ValidationScriptsPartial" />
+
+    }
+}

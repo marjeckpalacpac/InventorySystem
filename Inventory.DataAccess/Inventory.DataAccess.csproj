@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Inventory.Models\Inventory.Models.csproj" />
+    <ProjectReference Include="..\Inventory.Utility\Inventory.Utility.csproj" />
   </ItemGroup>
 
 </Project>

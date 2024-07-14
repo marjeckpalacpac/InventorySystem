@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,5 +18,8 @@ namespace Inventory.Models.Models
         public string? Email { get; set; }
         public bool SystemOwner { get; set; } = false;
         public bool IsActive { get; set; } = true;
+
+        [NotMapped]
+        public List<string> SupplyChainPartners { get; set; } = new();
     }
 }

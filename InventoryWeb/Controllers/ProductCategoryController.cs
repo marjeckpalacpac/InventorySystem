@@ -37,7 +37,7 @@ namespace InventoryWeb.Controllers
                 {
                     //Custom validation
                     ModelState.AddModelError("Name", "Name is already exist!");
-                    return View();
+                    return View(vm);
                 }
 
                 ProductCategory info = _mapper.Map<ProductCategory>(vm);
@@ -46,7 +46,7 @@ namespace InventoryWeb.Controllers
 
                 return View(nameof(Index));
             }
-            return View();
+            return View(vm);
         }
 
         [HttpGet]

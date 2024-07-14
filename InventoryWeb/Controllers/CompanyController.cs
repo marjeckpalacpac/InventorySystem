@@ -2,6 +2,7 @@
 using Inventory.DataAccess.Services;
 using Inventory.Models.Models;
 using Inventory.Models.ViewModels;
+using Inventory.Utility.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryWeb.Controllers
@@ -10,17 +11,138 @@ namespace InventoryWeb.Controllers
     {
         private readonly ICompanyService _company;
         private readonly IMapper _mapper;
+        private readonly ILookupListingService _lookupListingService;
 
-        public CompanyController(ICompanyService company, IMapper mapper)
+        public CompanyController(ICompanyService company, IMapper mapper, ILookupListingService lookupListingService)
         {
             _company = company;
             _mapper = mapper;
+            _lookupListingService = lookupListingService;
         }
         public IActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            CompanyViewModel vm = new();
+            await PopulateCommonList(vm);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CompanyViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var isNameExist = await _company.IsNameExist(vm.Id, vm.Name);
+                if (isNameExist)
+                {
+                    ModelState.AddModelError("Name", "Name is already exist!");
+                    return View(vm); 
+                }
+
+                Company info = _mapper.Map<Company>(vm);
+
+                await _company.CreateCompany(info);
+
+                return View(nameof(Index));
+            }
+            await PopulateCommonList(vm);
+            return View(vm);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+
+            var company = await _company.GetCompany((int)id);
+
+            if (company == null)
+                return NotFound();
+
+            var vm = _mapper.Map<CompanyViewModel>(company);
+            await PopulateCommonList(vm);
+            return View(vm);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(CompanyViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var isNameExist = await _company.IsNameExist(vm.Id, vm.Name);
+                if (isNameExist)
+                {
+                    //Custom validation
+                    ModelState.AddModelError("Name", "Name is already exist!");
+                    return View();
+                }
+
+                Company info = _mapper.Map<Company>(vm);
+
+                bool isUpdated = await _company.UpdateCompany(info);
+                if (isUpdated)
+                    return RedirectToAction(nameof(Index));
+                else
+                    return NotFound();
+            }
+
+            return View(vm);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+
+            var company = await _company.GetCompany((int)id);
+
+            if (company == null)
+                return NotFound();
+
+            var vm = _mapper.Map<CompanyViewModel>(company);
+            await PopulateCommonList(vm);
+
+            return View(vm);
+
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeletePost(int id)
+        {
+            bool isUpdated = await _company.DeleteCompany(id);
+            if (isUpdated)
+                return RedirectToAction(nameof(Index));
+            else
+                return NotFound();
+
+        }
+        [HttpGet]
+        public async Task<IActionResult> Detail(int id)
+        {
+
+            var company = await _company.GetCompany((int)id);
+
+            if (company == null)
+                return NotFound();
+
+            var vm = _mapper.Map<CompanyViewModel>(company);
+            await PopulateCommonList(vm);
+
+            return View(vm);
+
+        }
+
+        #region Non http requests
+        private async Task PopulateCommonList(CompanyViewModel vm)
+        {
+            var supplyChainPartners = await _lookupListingService.SupplyChainPartners();
+            vm.SupplyChainPartnerSelectList = supplyChainPartners.ToSelectListItems();
+        }
+        #endregion
 
         #region API Calls
         [HttpPost]

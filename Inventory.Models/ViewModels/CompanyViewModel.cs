@@ -1,4 +1,7 @@
-﻿using System;
+﻿
+using Inventory.Models.CustomValidations;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,6 +23,10 @@ namespace Inventory.Models.ViewModels
         public string? MobileNo { get; set; }
         public string? ContactPerson { get; set; }
         public string? Email { get; set; }
-        public bool SystemOwner { get; set; } 
+        public bool SystemOwner { get; set; }
+
+        [MinLengthList(1, ErrorMessage = "At least one item required in Supply Chain Partner")]
+        public List<string>? SupplyChainPartners { get; set; }
+        public IEnumerable<SelectListItem> SupplyChainPartnerSelectList { get; set; } = new List<SelectListItem>();
     }
 }
