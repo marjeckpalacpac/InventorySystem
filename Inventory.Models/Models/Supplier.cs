@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Inventory.Models.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Inventory.Models.Models
 {
-    public class Supplier
+    public class Supplier : AuditableEntity
     {
         public int Id { get; set; }
         public int CompanyId { get; set; }
