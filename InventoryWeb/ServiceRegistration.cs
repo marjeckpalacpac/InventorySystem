@@ -9,6 +9,7 @@ namespace InventoryWeb
             services.AddScoped<IProductCategoryService, ProductCategoryService>();
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<ILookupListingService, LookupListingService>();
+            services.AddScoped<IProductService, ProductService>();
             return services;
         }
     }

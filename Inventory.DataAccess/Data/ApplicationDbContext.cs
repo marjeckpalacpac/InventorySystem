@@ -20,7 +20,7 @@ namespace Inventory.DataAccess.Data
         public DbSet<LookupListing> LookupListings { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Product>Pproducts { get; set; }
+        public DbSet<Product>Products { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
