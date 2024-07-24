@@ -33,5 +33,14 @@ namespace InventoryWeb.Controllers
 
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult StatusCode(int code)
+        {
+            if (code == 404)
+            {
+                return View("NotFound", new NotFoundViewModel { ItemNotFound = false });
+            }
+            return View("Error");
+        }
     }
 }

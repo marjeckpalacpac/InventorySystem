@@ -25,11 +25,12 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseExceptionHandler("/Home/Error");
+app.UseStatusCodePagesWithReExecute("/Home/StatusCode", "?code={0}");
 
-//app.UseDeveloperExceptionPage(); -- NO NEED FOR THIS. This is builtin when environment is Development
+//app.UseDeveloperExceptionPage(); -- NOTE: NO NEED FOR THIS. This is builtin when environment is Development
 
-//app.UseMiddleware<ExceptionHandlerMiddleware>(); -- OPTION if we want a custom exception handler middleware. If not, you can use the UseExceptionHandler. This will catch error from either api request or mvc request
-//app.UseMiddleware<ApiExceptionMiddleware>(); -- OPTION. This will catch the error if API request only
+//app.UseMiddleware<ExceptionHandlerMiddleware>(); -- NOTE: OPTION if we want a custom exception handler middleware. If not, you can use the UseExceptionHandler. This will catch error from either api request or mvc request
+//app.UseMiddleware<ApiExceptionMiddleware>(); -- NOTE: OPTION. This will catch the error if API request only
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

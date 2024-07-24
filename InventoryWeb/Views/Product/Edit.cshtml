@@ -1,0 +1,79 @@
+﻿@model ProductViewModel
+
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-primary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Update Product</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post" class="row">
+            <div class="border p-3">
+                <div class="row">
+                    <div class="py-2 col-6">
+                        <label asp-for="Name" class="form-label"></label>
+                        <input asp-for="Name" class="form-control border-0 shadow" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="py-2 col-6">
+                        <label asp-for="ProductCategory" class="form-label">Product Category</label>
+                        <select id="SelectProductCategory" asp-for="ProductCategoryId" data-placeholder="Choose item"
+                                asp-items="@Model.ProductCategorySelectList" class="form-select border-0 shadow">
+                            <option disabled selected>--</option>
+                        </select>
+                        <span asp-validation-for="ProductCategoryId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="py-2 col-6">
+                        <label asp-for="SupplierId" class="form-label">Supplier</label>
+                        <select id="SelectSupplier" asp-for="SupplierId" data-placeholder="Choose item"
+                                asp-items="@Model.SupplierSelectList" class="form-select border-0 shadow">
+                            <option disabled selected>--</option>
+                        </select>
+                        <span asp-validation-for="SupplierId" class="text-danger"></span>
+                    </div>
+                    <div class="py-2 col-6">
+                        <label asp-for="MinimumStock" class="form-label">Minimum Stock</label>
+                        <input type="number" asp-for="MinimumStock" class="form-control border-0 shadow" />
+                        <span asp-validation-for="MinimumStock" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="py-2 col-6">
+                        <label asp-for="UnitOfMeasurementId" class="form-label">Unit of Measurement</label>
+                        <select id="SelectUoM" asp-for="UnitOfMeasurementId" data-placeholder="Choose item"
+                                asp-items="@Model.UnitOfMeasurementSelectList" class="form-select border-0 shadow">
+                            <option disabled selected>--</option>
+                        </select>
+                        <span asp-validation-for="UnitOfMeasurementId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row pt-2">
+                    <div class="col-6 col-md-3 ms-auto">
+                        <button type="submit" class="btn btn-primary form-control">Update</button>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a asp-controller="Product" asp-action="Index" class="btn btn-outline-primary border  form-control">
+                            Back to List
+                        </a>
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+}

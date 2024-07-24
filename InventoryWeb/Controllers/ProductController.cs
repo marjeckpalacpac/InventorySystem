@@ -4,6 +4,7 @@ using Inventory.Models.Models;
 using Inventory.Models.ViewModels;
 using Inventory.Utility.Helpers;
 using Inventory.Utility.Misc;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryWeb.Controllers
@@ -55,8 +56,97 @@ namespace InventoryWeb.Controllers
 
             await PopulateCommonList(vm);
 
-            TempData[TempDataNotification.Error] = "Something went wrong";
+            //TempData[TempDataNotification.Error] = "Something went wrong";
             return View(vm);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var product = await _product.GetProduct(id);
+
+            if (product == null)
+                return View("NotFound", new NotFoundViewModel() { Message = $"The product with id of {id} could not be found." });
+
+            var vm = _mapper.Map<ProductViewModel>(product);
+            await PopulateCommonList(vm);
+            return View(vm);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ProductViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var isNameExist = await _product.IsNameExist(vm.Id, vm.Name);
+                if (isNameExist)
+                {
+                    //Custom validation
+                    ModelState.AddModelError("Name", "Name is already exist!");
+                    return View();
+                }
+
+                Product info = _mapper.Map<Product>(vm);
+
+                bool isUpdated = await _product.UpdateProduct(info);
+                if (isUpdated)
+                {
+                    TempData[TempDataNotification.Success] = string.Concat("Product ", info.Name, " updated successfully");
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                    return View("NotFound", new NotFoundViewModel() { Message = $"The product with id of {vm.Id} could not be found." });
+            }
+
+            //TempData[TempDataNotification.Error] = "Something went wrong";
+            await PopulateCommonList(vm);
+            return View(vm);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+
+            var product = await _product.GetProduct(id);
+
+            if (product == null)
+                return View("NotFound", new NotFoundViewModel() { Message = $"The product with id of {id} could not be found." });
+
+            var vm = _mapper.Map<ProductViewModel>(product);
+            await PopulateCommonList(vm);
+
+            return View(vm);
+
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeletePost(int id)
+        {
+            bool isUpdated = await _product.DeleteProduct(id);
+            if (isUpdated)
+            {
+                TempData[TempDataNotification.Success] = "Deleted successfully";
+                return RedirectToAction(nameof(Index));
+            }
+            else
+                return View("NotFound", new NotFoundViewModel() { Message = $"The product with id of {id} could not be found." });
+
+        }
+        [HttpGet]
+        public async Task<IActionResult> Detail(int id)
+        {
+
+            var product = await _product.GetProduct(id);
+
+            if (product == null)
+                return View("NotFound", new NotFoundViewModel() { Message = $"The product with id of {id} could not be found." });
+
+            var vm = _mapper.Map<ProductViewModel>(product);
+            await PopulateCommonList(vm);
+
+            return View(vm);
+
         }
 
         #region Non http requests

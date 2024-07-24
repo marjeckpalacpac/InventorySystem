@@ -64,11 +64,51 @@ namespace Inventory.DataAccess.Services
             return (products, recordsTotal, recordsFiltered);
         }
 
+        public async Task<Product?> GetProduct(int id)
+        {
+            var record = await _dbContext.Products
+                .Include(pc => pc.ProductCategory)
+                .Include(s => s.Supplier)
+                .Include(uom => uom.UnitOfMeasurement)
+                .AsNoTracking().FirstOrDefaultAsync(f => f.Id == id && f.IsActive);
+
+            return record;
+        }
         public async Task CreateProduct(Product info)
         {
             await _dbContext.Products.AddAsync(info);
 
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> UpdateProduct(Product info)
+        {
+            var product = await _dbContext.Products.FirstOrDefaultAsync(w => w.Id == info.Id && w.IsActive);
+            if (product == null)
+                return false;
+
+            product.Name = info.Name;
+            product.MinimumStock = info.MinimumStock;
+            product.SupplierId = info.SupplierId;
+            product.ProductCategoryId = info.ProductCategoryId;
+            product.UnitOfMeasurementId = info.UnitOfMeasurementId;
+
+            await _dbContext.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> DeleteProduct(int id)
+        {
+            var product = await _dbContext.Products.FirstOrDefaultAsync(w => w.Id == id && w.IsActive);
+            if (product == null)
+                return false;
+
+            product.IsActive = false;
+
+            await _dbContext.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task<bool> IsNameExist(int id, string name)
