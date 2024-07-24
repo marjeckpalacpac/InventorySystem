@@ -10,6 +10,8 @@ namespace Inventory.DataAccess.Services
 {
     public interface IProductService
     {
+        Task CreateProduct(Product info);
+        Task<bool> IsNameExist(int id, string name);
         Task<(List<Product> products, int recordsTotal, int recordsFiltered)> SearchProduct(DataTableParams tableParams);
     }
 }

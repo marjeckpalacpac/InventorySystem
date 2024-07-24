@@ -15,11 +15,11 @@ function loadDataTable() {
             { "data": 'id', "width": '15%' },
             { "data": 'name' },
             { "data": 'productCategory.name' },
-            { "data": 'supplier.name' },
+            { "data": 'supplier.company.name' },
             { "data": 'minimumStock' },
-            { "data": 'unit' },
+            { "data": 'unitOfMeasurement.name' },
             {
-                "data": null,
+                "data": 'id',
                 "render": function (data) {
                     
                     return `<div class="w-75 btn-group" role="group">

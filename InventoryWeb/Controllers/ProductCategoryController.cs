@@ -49,7 +49,7 @@ namespace InventoryWeb.Controllers
                 return View(nameof(Index));
             }
 
-            TempData[TempDataNotification.Error] = "Something went wrong";
+            //TempData[TempDataNotification.Error] = "Something went wrong";
             return View(vm);
         }
 
@@ -93,7 +93,7 @@ namespace InventoryWeb.Controllers
                     return NotFound();
             }
 
-            TempData[TempDataNotification.Error] = "Something went wrong";
+            //TempData[TempDataNotification.Error] = "Something went wrong";
             return View(vm);
         }
 

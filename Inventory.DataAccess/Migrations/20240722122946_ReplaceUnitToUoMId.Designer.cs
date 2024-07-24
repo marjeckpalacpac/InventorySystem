@@ -4,6 +4,7 @@ using Inventory.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inventory.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240722122946_ReplaceUnitToUoMId")]
+    partial class ReplaceUnitToUoMId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,10 +81,10 @@ namespace Inventory.DataAccess.Migrations
                             Id = 1,
                             Address = "Las Piñas City",
                             ContactPerson = "John Doe",
-                            CreatedDate = new DateTime(2024, 7, 22, 13, 7, 7, 341, DateTimeKind.Utc).AddTicks(4771),
+                            CreatedDate = new DateTime(2024, 7, 22, 12, 29, 46, 664, DateTimeKind.Utc).AddTicks(7454),
                             Email = "JohnDoe@gmail.com",
                             IsActive = true,
-                            LastModifiedDate = new DateTime(2024, 7, 22, 13, 7, 7, 341, DateTimeKind.Utc).AddTicks(4774),
+                            LastModifiedDate = new DateTime(2024, 7, 22, 12, 29, 46, 664, DateTimeKind.Utc).AddTicks(7455),
                             MobileNo = "09291234567",
                             Name = "ABC Inc.",
                             SystemOwner = true,
@@ -317,7 +320,7 @@ namespace Inventory.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UnitOfMeasurements");
+                    b.ToTable("UnitOfMeasurement");
                 });
 
             modelBuilder.Entity("Inventory.Models.Models.Customer", b =>

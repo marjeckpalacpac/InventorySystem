@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-	  <FrameworkReference Include="Microsoft.AspNetCore.App" /> <!--Need to add this for the SelectListItem-->
+	  <FrameworkReference Include="Microsoft.AspNetCore.App" />
+	  <PackageReference Include="DataAnnotationsExtensions" Version="5.0.1.27" /> <!--Need to add this for the SelectListItem-->
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.3.0" />
   </ItemGroup>
 

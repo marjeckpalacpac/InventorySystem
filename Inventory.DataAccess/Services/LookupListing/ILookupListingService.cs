@@ -9,6 +9,9 @@ namespace Inventory.DataAccess.Services
 {
     public interface ILookupListingService
     {
-        Task<List<LookupListing>> SupplyChainPartners(bool? isActiveOnly = true);
+        Task<List<LookupListing>> ProductCategoryListing(bool? isActiveOnly = true);
+        Task<List<LookupListing>> SupplierListing(bool? isActiveOnly = true);
+        Task<List<LookupListing>> SupplyChainPartnersListing(bool? isActiveOnly = true);
+        Task<List<LookupListing>> UnitOfMeasurementListing(bool? isActiveOnly = true);
     }
 }

@@ -19,7 +19,7 @@ namespace Inventory.Utility.Helpers
 
                 selectLists = list.Select(s => new SelectListItem() { 
                     Text = s.Name!,
-                    Value = s.Value!
+                    Value = s.Value ?? s.Id.ToString()
                 }).ToList();
 
             }

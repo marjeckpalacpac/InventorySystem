@@ -22,7 +22,8 @@ namespace Inventory.Models.Models
         [ForeignKey("SupplierId")]
         public Supplier? Supplier { get; set; }
         public int MinimumStock { get; set; }
-        public string Unit { get; set; }
+        public int UnitOfMeasurementId { get; set; }
+        public UnitOfMeasurement UnitOfMeasurement { get; set; }
         public bool IsActive { get; set; } = true;
     }
 }

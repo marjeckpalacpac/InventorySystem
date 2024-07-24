@@ -54,7 +54,7 @@ namespace InventoryWeb.Controllers
             }
             await PopulateCommonList(vm);
 
-            TempData[TempDataNotification.Error] = "Something went wrong";
+            //TempData[TempDataNotification.Error] = "Something went wrong";
             return View(vm);
         }
 
@@ -98,7 +98,7 @@ namespace InventoryWeb.Controllers
                     return NotFound();
             }
 
-            TempData[TempDataNotification.Error] = "Something went wrong";
+            //TempData[TempDataNotification.Error] = "Something went wrong";
             return View(vm);
         }
 
@@ -150,7 +150,7 @@ namespace InventoryWeb.Controllers
         #region Non http requests
         private async Task PopulateCommonList(CompanyViewModel vm)
         {
-            var supplyChainPartners = await _lookupListingService.SupplyChainPartners();
+            var supplyChainPartners = await _lookupListingService.SupplyChainPartnersListing();
             vm.SupplyChainPartnerSelectList = supplyChainPartners.ToSelectListItems();
         }
         #endregion
