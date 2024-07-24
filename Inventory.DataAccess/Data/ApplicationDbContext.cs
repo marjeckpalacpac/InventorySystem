@@ -22,6 +22,8 @@ namespace Inventory.DataAccess.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Product>Products { get; set; }
         public DbSet<UnitOfMeasurement> UnitOfMeasurements { get; set; }
+        public DbSet<PurchaseRequest> PurchaseRequests { get; set; }
+        public DbSet<PurchaseRequestDetail> PurchaseRequestDetails { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
