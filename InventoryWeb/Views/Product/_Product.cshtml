@@ -1,0 +1,51 @@
+﻿@using Inventory.Utility.Misc
+@model ProductViewModel
+
+@{
+    bool disableControls = (Model.FormAction == FormAction.Delete || Model.FormAction == FormAction.Detail);
+}
+
+<div class="row">
+    <div class="py-2 col-6">
+        <label asp-for="Name" class="form-label"></label>
+        <input disabled="@(disableControls)" asp-for="Name" class="form-control border-0 shadow" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="py-2 col-6">
+        <label asp-for="ProductCategory" class="form-label">Product Category</label>
+        <select disabled="@(disableControls)" id="SelectProductCategory" asp-for="ProductCategoryId" data-placeholder="Choose item"
+                asp-items="@Model.ProductCategorySelectList" class="form-select border-0 shadow">
+            <option disabled selected>--</option>
+        </select>
+        <span asp-validation-for="ProductCategoryId" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="py-2 col-6">
+        <label asp-for="SupplierId" class="form-label">Supplier</label>
+        <select disabled="@(disableControls)" id="SelectSupplier" asp-for="SupplierId" data-placeholder="Choose item"
+                asp-items="@Model.SupplierSelectList" class="form-select border-0 shadow">
+            <option disabled selected>--</option>
+        </select>
+        <span asp-validation-for="SupplierId" class="text-danger"></span>
+    </div>
+    <div class="py-2 col-6">
+        <label asp-for="MinimumStock" class="form-label">Minimum Stock</label>
+        <input disabled="@(disableControls)" type="number" asp-for="MinimumStock" class="form-control border-0 shadow" />
+        <span asp-validation-for="MinimumStock" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="py-2 col-6">
+        <label asp-for="UnitOfMeasurementId" class="form-label">Unit of Measurement</label>
+        <select disabled="@(disableControls)" id="SelectUoM" asp-for="UnitOfMeasurementId" data-placeholder="Choose item"
+                asp-items="@Model.UnitOfMeasurementSelectList" class="form-select border-0 shadow">
+            <option disabled selected>--</option>
+        </select>
+        <span asp-validation-for="UnitOfMeasurementId" class="text-danger"></span>
+    </div>
+</div>
+
+
+
+

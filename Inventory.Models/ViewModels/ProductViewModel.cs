@@ -1,4 +1,5 @@
 ﻿using DataAnnotationsExtensions;
+using Inventory.Models.Common;
 using Inventory.Models.CustomValidations;
 using Inventory.Models.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Inventory.Models.ViewModels
 {
-    public class ProductViewModel
+    public class ProductViewModel : BaseViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

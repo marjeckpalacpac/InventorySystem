@@ -30,6 +30,7 @@ namespace InventoryWeb.Controllers
         public async Task<IActionResult> Create()
         {
             ProductViewModel vm = new();
+            vm.FormAction = FormAction.Create;
             await PopulateCommonList(vm);
             return View(vm);
         }
@@ -69,6 +70,7 @@ namespace InventoryWeb.Controllers
                 return View("NotFound", new NotFoundViewModel() { Message = $"The product with id of {id} could not be found." });
 
             var vm = _mapper.Map<ProductViewModel>(product);
+            vm.FormAction = FormAction.Edit;
             await PopulateCommonList(vm);
             return View(vm);
 
@@ -107,13 +109,13 @@ namespace InventoryWeb.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-
             var product = await _product.GetProduct(id);
 
             if (product == null)
                 return View("NotFound", new NotFoundViewModel() { Message = $"The product with id of {id} could not be found." });
 
             var vm = _mapper.Map<ProductViewModel>(product);
+            vm.FormAction = FormAction.Delete;
             await PopulateCommonList(vm);
 
             return View(vm);
@@ -123,6 +125,7 @@ namespace InventoryWeb.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeletePost(int id)
         {
+            //No need for validation here. The Model will be validated if the parameter of the action method (DeletePost) is also a Model. From current case it is int id
             bool isUpdated = await _product.DeleteProduct(id);
             if (isUpdated)
             {
@@ -143,6 +146,7 @@ namespace InventoryWeb.Controllers
                 return View("NotFound", new NotFoundViewModel() { Message = $"The product with id of {id} could not be found." });
 
             var vm = _mapper.Map<ProductViewModel>(product);
+            vm.FormAction = FormAction.Detail;
             await PopulateCommonList(vm);
 
             return View(vm);

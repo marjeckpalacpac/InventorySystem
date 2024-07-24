@@ -17,4 +17,12 @@ namespace Inventory.Utility.Misc
         public static string Success { get; } = "success";
         public static string Error { get; } = "error";
     }
+
+    public static class FormAction
+    {
+        public static string Create { get;  } = "Create";
+        public static string Edit { get;  } = "Update";
+        public static string Delete { get;  } = "Delete";
+        public static string Detail { get;  } = "Detail";
+    }
 }
