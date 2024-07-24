@@ -48,6 +48,71 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Procurement
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        Purchase &raquo;
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-submenu">
+                                        <li>
+                                            <a class="dropdown-item" asp-controller="PurchaseRequest" asp-action="Index">Purchase Request</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" asp-controller="PurchaseOrder" asp-action="Index">Purchase Order</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li class="nav-item dropdown" hidden>
+                            <a class="nav-link text-dark dropdown-toggle" href="#"
+                               id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown link
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="#">Action</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        Submenu &raquo;
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-submenu">
+                                        <li>
+                                            <a class="dropdown-item" href="#">Submenu item 1</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">Submenu item 2</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                            <ul class="dropdown-menu dropdown-submenu">
+                                                <li>
+                                                    <a class="dropdown-item" href="#">Multi level 1</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="#">Multi level 2</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">Submenu item 4</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">Submenu item 5</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
