@@ -11,6 +11,7 @@ namespace InventoryWeb
             CreateMap<ProductCategory, ProductCategoryViewModel>().ReverseMap();
             CreateMap<Company, CompanyViewModel>().ReverseMap();
             CreateMap<Product, ProductViewModel>().ReverseMap();
+            CreateMap<PurchaseRequest, PurchaseRequestViewModel>().ReverseMap();
         }
     }
 }

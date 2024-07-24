@@ -10,6 +10,7 @@ namespace InventoryWeb
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<ILookupListingService, LookupListingService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IPurchaseRequestService, PurchaseRequestService>();
             return services;
         }
     }
