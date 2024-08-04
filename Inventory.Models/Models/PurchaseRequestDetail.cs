@@ -19,5 +19,8 @@ namespace Inventory.Models.Models
 
         [ForeignKey("ProductId")]
         public Product Product { get; set; }
+
+        public double Quantity { get; set; }
+
     }
 }

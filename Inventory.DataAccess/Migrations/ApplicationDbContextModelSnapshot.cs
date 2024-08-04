@@ -78,10 +78,10 @@ namespace Inventory.DataAccess.Migrations
                             Id = 1,
                             Address = "Las Piñas City",
                             ContactPerson = "John Doe",
-                            CreatedDate = new DateTime(2024, 7, 24, 8, 57, 18, 861, DateTimeKind.Utc).AddTicks(2596),
+                            CreatedDate = new DateTime(2024, 7, 30, 13, 40, 16, 563, DateTimeKind.Utc).AddTicks(3964),
                             Email = "JohnDoe@gmail.com",
                             IsActive = true,
-                            LastModifiedDate = new DateTime(2024, 7, 24, 8, 57, 18, 861, DateTimeKind.Utc).AddTicks(2599),
+                            LastModifiedDate = new DateTime(2024, 7, 30, 13, 40, 16, 563, DateTimeKind.Utc).AddTicks(3966),
                             MobileNo = "09291234567",
                             Name = "ABC Inc.",
                             SystemOwner = true,
@@ -309,6 +309,9 @@ namespace Inventory.DataAccess.Migrations
 
                     b.Property<int>("PurchaseRequestId")
                         .HasColumnType("int");
+
+                    b.Property<double>("Quantity")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

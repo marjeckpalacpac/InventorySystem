@@ -1,0 +1,47 @@
+﻿@using Inventory.Utility.Misc
+@using Newtonsoft.Json;
+
+@model PurchaseRequestViewModel
+
+@{
+    bool disableControls = (Model.FormAction == FormAction.Delete || Model.FormAction == FormAction.Detail);
+}
+<script>
+    var purchaseRequestDetails = @Html.Raw(JsonConvert.SerializeObject(Model.PurchaseRequestDetails));
+</script>
+
+<div class="row">
+    <div class="py-2 col-6">
+        <label asp-for="PRNumber" class="form-label"></label>
+        <input disabled asp-for="PRNumber" class="form-control border-0 shadow" />
+    </div>
+</div>
+<div class="row">
+    <div class="py-2 col-12">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" class="form-control border-0 shadow"></textarea>
+    </div>
+</div>
+<div class="row p-3 mt-3">
+    <div class="border">
+        <div class="col col-md-2 ms-auto mt-3">
+            <button type="button" id="addRowBtn" class="btn btn-primary form-control">Add Item</button>
+        </div>
+
+        <table id="tblPurchaseRequestDetail" class="display table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    @* <th>Price</th> *@
+                    @* <th>Total Price</th> *@
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be added dynamically -->
+            </tbody>
+        </table>
+    </div>
+</div>
+

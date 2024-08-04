@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Inventory.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class PurchaseRequestAndDetails : Migration
+    public partial class AddPurchaseRequestsAndDetails : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,6 +37,7 @@ namespace Inventory.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PurchaseRequestId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<double>(type: "float", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -64,7 +65,7 @@ namespace Inventory.DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 columns: new[] { "CreatedDate", "LastModifiedDate" },
-                values: new object[] { new DateTime(2024, 7, 24, 8, 57, 18, 861, DateTimeKind.Utc).AddTicks(2596), new DateTime(2024, 7, 24, 8, 57, 18, 861, DateTimeKind.Utc).AddTicks(2599) });
+                values: new object[] { new DateTime(2024, 7, 30, 13, 40, 16, 563, DateTimeKind.Utc).AddTicks(3964), new DateTime(2024, 7, 30, 13, 40, 16, 563, DateTimeKind.Utc).AddTicks(3966) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_PurchaseRequestDetails_ProductId",
